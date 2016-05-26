@@ -12,6 +12,8 @@ switchpassword='C15co123!'
 cmd_id_start = 2
 vland_id_start = 101
 vxlan_id_start = vland_id_start + 40000
+counter = 1
+needed = 400
 
 def addVlan (vlan_id,vxlan_id):
 
@@ -59,4 +61,13 @@ def addVlan (vlan_id,vxlan_id):
 
 
 if __name__ == "__main__":
-    addVlan(vland_id_start,vxlan_id_start)
+    vland_id = vland_id_start
+    vxlan_id = vxlan_id_start
+
+    while counter <= needed:
+        addVlan(vland_id,vxlan_id)
+
+        vland_id = vland_id + 1
+        vxlan_id = vxlan_id + 1
+        counter = counter + 1
+        #print counter
