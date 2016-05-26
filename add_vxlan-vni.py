@@ -19,7 +19,6 @@ mcast_base = "239.0.0.0"
 
 def getMcastAddress(mcast_base,counter):
     mcast = mcast_base.split(".")
-    #print mcast_base[0]
     mcast[3] = counter
 
     test = counter/256
@@ -27,19 +26,12 @@ def getMcastAddress(mcast_base,counter):
         mcast[2] = int(mcast[2]) + int(round(test,0))
         mcast[3] = int(mcast[3]) - (int(round(test,0)*255))
 
-
-    #if counter/256 >=1:
-    #    if mcast[3] >= 256:
-    #        mcast[2] = int(mcast[2]) + 1
-    #    mcast[3] = int(mcast[3]) - 256
-    #    mcast[2] = int(mcast[2]) + 1
-
     return mcast[0]+"."+mcast[1]+"."+str(mcast[2])+"."+str(mcast[3])
 
 
 def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
 
-    print "Creating VLAN-ID:"+str(vlan_id)+", VXLAN-ID:"+str(vxlan_id)
+    print "Creating VLAN-ID:"+str(vlan_id)+", VXLAN-ID:"+str(vxlan_id)+", MCAST-GROUP:"+str(mcast_address)
 
     myheaders={'content-type':'application/json-rpc'}
     payload=[
