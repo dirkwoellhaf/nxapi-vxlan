@@ -47,7 +47,7 @@ payload=[
     "jsonrpc": "2.0",
     "method": "cli",
     "params": {
-      "cmd": "vn-segment 100",
+      "cmd": "vn-segment 40100",
       "version": 1
     },
     "id": 4
