@@ -59,7 +59,9 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
     ]
     #print payload
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
-    print response
+
+# Enable for debugging
+    #print response
 
 if __name__ == "__main__":
     vland_id = vland_id_start
@@ -74,4 +76,4 @@ if __name__ == "__main__":
         counter = counter + 1
         #print counter
 
-    print "Created " + str(counter) + " Segments"
+    print "Created " + str(counter-1) + " Segments"
