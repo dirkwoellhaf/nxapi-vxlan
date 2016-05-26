@@ -31,4 +31,5 @@ payload=[
     "id": 2
   }
 ]
-response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
+print payload
+#response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
