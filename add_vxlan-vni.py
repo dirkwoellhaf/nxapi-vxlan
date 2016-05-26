@@ -13,7 +13,7 @@ cmd_id_start = 2
 vland_id_start = 101
 vxlan_id_start = vland_id_start + 40000
 
-def addVlan (vlan_id, vxlan_id)
+def addVlan (vlan_id,vxlan_id):
 
     myheaders={'content-type':'application/json-rpc'}
     payload=[
@@ -54,7 +54,7 @@ def addVlan (vlan_id, vxlan_id)
         "id": 4
       }
     ]
-    #print payload
+    print payload
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
 
 
