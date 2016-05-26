@@ -39,6 +39,8 @@ def getMcastAddress(mcast_base,counter):
 
 def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
 
+    print "Creating VLAN-ID:"+str(vlan_id)+", VXLAN-ID:"+str(vxlan_id)
+
     myheaders={'content-type':'application/json-rpc'}
     payload=[
       {
@@ -63,7 +65,7 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
         "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "mcast-group "+str(mcast_address), "version": 1 }, "id": 7
       }
     ]
-    print payload
+    #print payload
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
 
 
