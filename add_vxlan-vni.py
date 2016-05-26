@@ -55,7 +55,28 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
       },
       {
         "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "mcast-group "+str(mcast_address), "version": 1 }, "id": 7
+      },
+      {
+        "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "router bgp 65000", "version": 1 }, "id": 8
+      },
+      {
+        "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "evpn", "version": 1 }, "id": 9
+      },
+      {
+        "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "vni "+str(vxlan_id)+" l2", "version": 1 }, "id": 10
+      },
+      {
+        "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "rd auto", "version": 1 }, "id": 11
+      },
+      {
+        "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "route-target import auto", "version": 1 }, "id": 12
+      },
+      {
+        "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "route-target export auto", "version": 1 }, "id": 13
       }
+
+
+
     ]
     #print payload
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
