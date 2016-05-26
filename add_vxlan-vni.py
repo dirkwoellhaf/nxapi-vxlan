@@ -73,5 +73,5 @@ if __name__ == "__main__":
         vxlan_id = vxlan_id + 1
         counter = counter + 1
         #print counter
-        
-    print "Created " + str(counter) + "Segments"
+
+    print "Created " + str(counter) + " Segments"
