@@ -3,11 +3,12 @@
 import requests
 import json
 import random
+import sys
 
 """
 Modify these please
 """
-url='http://10.1.18.13/ins'
+url='http://'+sys.argv[1]+'/ins'
 switchuser='admin'
 switchpassword='C15co123!'
 cmd_id_start = 2
