@@ -83,14 +83,18 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
 
 # Enable for debugging
     #print response
+    return response
 
 if __name__ == "__main__":
     vland_id = vland_id_start
     vxlan_id = vxlan_id_start
 
     while counter <= needed:
+        response = addSegment(vland_id,vxlan_id,getMcastAddress(mcast_base,counter),nve_interface)
 
-        addSegment(vland_id,vxlan_id,getMcastAddress(mcast_base,counter),nve_interface)
+        if "error" in response :
+            print "ERROR: "+response 
+
 
         vland_id = vland_id + 1
         vxlan_id = vxlan_id + 1
