@@ -33,7 +33,7 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
 
     print "Creating VLAN-ID:"+str(vlan_id)+", VXLAN-ID:"+str(vxlan_id)+", MCAST-GROUP:"+str(mcast_address)
 
-    myheaders={'content-type':'application/json-rpc'}
+    myheaders={'content-type':'application/json'}
     payload=[
       {
         "jsonrpc": "2.0", "method": "cli", "params": { "cmd": "conf t","version": 1 }, "id": 1
