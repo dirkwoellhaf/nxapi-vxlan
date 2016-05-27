@@ -64,7 +64,7 @@ if __name__ == "__main__":
     while counter <= needed:
         response = addSegment(vland_id,vxlan_id,getMcastAddress(mcast_base),nve_interface,sys.argv[2])
 
-        if "error" in response :
+        if "Success" not in response :
             print "ERROR: "+str(response)
 
 
