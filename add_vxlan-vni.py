@@ -79,16 +79,16 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
     ]
 
 
-    payload={
-      "ins_api": {
-        "version": "1.0",
-        "type": "cli_conf",
-        "chunk": "0",
-        "sid": "1",
-        "input": "conf t ;vlan "+str(vlan_id)+" ; name PY_"+str(vlan_id)+"; vn-segment "+str(vxlan_id)+"; interface nve "+str(nve_interface)+"; member vni "+str(vxlan_id)+"; mcast-group "+str(mcast_address)+"; router bgp 65000; evpn; vni "+str(vxlan_id)+" l2; rd auto; route-target import auto; route-target export auto",
-        "output_format": "json"
-      }
-    }
+    #payload={
+    #  "ins_api": {
+    #    "version": "1.0",
+    #    "type": "cli_conf",
+    #    "chunk": "0",
+    #    "sid": "1",
+    #    "input": "conf t ;vlan "+str(vlan_id)+" ;name PY_"+str(vlan_id)+" ;vn-segment "+str(vxlan_id)+" ;interface nve "+str(nve_interface)+" ;member vni "+str(vxlan_id)+" ;mcast-group "+str(mcast_address)+" ;router bgp 65000 ;evpn ;vni "+str(vxlan_id)+" l2 ;rd auto ;route-target import auto ;route-target export auto ;",
+    #    "output_format": "json"
+    #  }
+    #}
 
     print payload
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
