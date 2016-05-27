@@ -14,7 +14,7 @@ cmd_id_start = 2
 vland_id_start = 100
 vxlan_id_start = vland_id_start + 40000
 counter = 1
-needed = 3500  #MAX: 3500
+needed = 100  #MAX: 3500
 nve_interface = 1
 mcast_base = "239.0.0.0"
 
@@ -91,7 +91,7 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
         "type": "cli_conf",
         "chunk": "0",
         "sid": "1",
-        "input": "conf t ;vlan "+str(vlan_id)+" ;name PY_"+str(vlan_id)+" ;vn-segment "+str(vxlan_id)+" ;interface nve "+str(nve_interface)+" ;member vni "+str(vxlan_id)+" ;mcast-group "+str(mcast_address)+"" ;router bgp 65000 ;evpn ;vni "+str(vxlan_id)+" l2 ;rd auto ;route-target import auto ;route-target export auto",
+        "input": "conf t ;vlan "+str(vlan_id)+" ;name PY_"+str(vlan_id)+" ;vn-segment "+str(vxlan_id)+" ;interface nve "+str(nve_interface)+" ;member vni "+str(vxlan_id)+" ;mcast-group "+str(mcast_address)+" ;router bgp 65000 ;evpn ;vni "+str(vxlan_id)+" l2 ;rd auto ;route-target import auto ;route-target export auto",
         "output_format": "json"
       }
     }
