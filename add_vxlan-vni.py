@@ -5,9 +5,6 @@ import json
 import random
 import sys
 
-"""
-Modify these please
-"""
 url='http://'+sys.argv[1]+'/ins'
 switchuser='admin'
 switchpassword='C15co123!'
@@ -15,7 +12,7 @@ cmd_id_start = 2
 vland_id_start = 100
 vxlan_id_start = vland_id_start + 40000
 counter = 1
-needed = 100  #MAX: 3500
+needed = sys.argv[2]  #MAX: 3500
 nve_interface = 1
 mcast_base = "239.0.0.0"
 
