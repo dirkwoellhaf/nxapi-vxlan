@@ -2,6 +2,7 @@
 
 import requests
 import json
+import random
 
 """
 Modify these please
@@ -10,23 +11,28 @@ url='http://10.1.18.13/ins'
 switchuser='admin'
 switchpassword='C15co123!'
 cmd_id_start = 2
-vland_id_start = 101
+vland_id_start = 100
 vxlan_id_start = vland_id_start + 40000
 counter = 1
-needed = 600
+needed = 3500  #MAX: 3500
 nve_interface = 1
 mcast_base = "239.0.0.0"
 
-def getMcastAddress(mcast_base,counter):
+def getMcastAddress(mcast_base,counter,needed):
     mcast = mcast_base.split(".")
     mcast[3] = counter
 
-    test = counter/256
-    if round(test,0) >= 1:
-        mcast[2] = int(mcast[2]) + int(round(test,0))
-        mcast[3] = int(mcast[3]) - (int(round(test,0)*255))
+    #test = needed/255
+    #print int((counter/test)/1.5)
+    #print random.randint(1,)
+    mcast[3] = random.randint(1,512)
+    if mcast[3] >= 257:
+        mcast[2] = 1
+        mcast[3] = int(mcast[3]) - 256
 
-    return mcast[0]+"."+mcast[1]+"."+str(mcast[2])+"."+str(mcast[3])
+    address = mcast[0]+"."+mcast[1]+"."+str(mcast[2])+"."+str(mcast[3])
+
+    return address
 
 
 def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
@@ -78,23 +84,24 @@ def addSegment (vlan_id,vxlan_id,mcast_address,nve_interface):
 
     ]
 
+    myheaders={'content-type':'application/json'}
+    payload={
+      "ins_api": {
+        "version": "1.0",
+        "type": "cli_conf",
+        "chunk": "0",
+        "sid": "1",
+        "input": "conf t ;vlan "+str(vlan_id)+" ;name PY_"+str(vlan_id)+" ;vn-segment "+str(vxlan_id)+" ;interface nve "+str(nve_interface)+" ;member vni "+str(vxlan_id)+" ;mcast-group "+str(mcast_address)+"" ;router bgp 65000 ;evpn ;vni "+str(vxlan_id)+" l2 ;rd auto ;route-target import auto ;route-target export auto",
+        "output_format": "json"
+      }
+    }
 
-    #payload={
-    #  "ins_api": {
-    #    "version": "1.0",
-    #    "type": "cli_conf",
-    #    "chunk": "0",
-    #    "sid": "1",
-    #    "input": "conf t ;vlan "+str(vlan_id)+" ;name PY_"+str(vlan_id)+" ;vn-segment "+str(vxlan_id)+" ;interface nve "+str(nve_interface)+" ;member vni "+str(vxlan_id)+" ;mcast-group "+str(mcast_address)+" ;router bgp 65000 ;evpn ;vni "+str(vxlan_id)+" l2 ;rd auto ;route-target import auto ;route-target export auto ;",
-    #    "output_format": "json"
-    #  }
-    #}
-
-    print payload
+    #print payload
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
 
 # Enable for debugging
     #print response
+    #response = ""
     return response
 
 if __name__ == "__main__":
@@ -102,7 +109,7 @@ if __name__ == "__main__":
     vxlan_id = vxlan_id_start
 
     while counter <= needed:
-        response = addSegment(vland_id,vxlan_id,getMcastAddress(mcast_base,counter),nve_interface)
+        response = addSegment(vland_id,vxlan_id,getMcastAddress(mcast_base,counter,needed),nve_interface)
 
         if "error" in response :
             print "ERROR: "+str(response)
