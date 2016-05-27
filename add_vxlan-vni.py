@@ -105,7 +105,7 @@ if __name__ == "__main__":
         response = addSegment(vland_id,vxlan_id,getMcastAddress(mcast_base,counter),nve_interface)
 
         if "error" in response :
-            print "ERROR: "+response
+            print "ERROR: "+str(response)
 
 
         vland_id = vland_id + 1
